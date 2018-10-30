@@ -1,4 +1,4 @@
-GITHUB
+GITHUB INSTRUCTIONS
 
 Git branch // checks which branch you’re in
 
