@@ -7,7 +7,7 @@
 ** (Github branch making steps available @ githubSteps.md) **
 
 ---
-* factor js into separate scripts
+* factor js into separate scripts // ** Mateo **
 
 * ~~consolidate html files~~ // ** Mateo **
 
