@@ -23,16 +23,20 @@ Navigate to Github.com/REPO_NAME:
 
 https://github.com/dianacgaona/api-guide-with-tictactoe
 
-1. click branch link
-2. press NEW_BRANCH_NAME newPullRequest button
+1. * click branch link
+ * press NEW_BRANCH_NAME newPullRequest button
 
-# IMPORTANT!!!
+**OR if available:**
 
-** 3. Update the base fork drop down button (the far left button) to the local repo (iow change it to the forked repo, NOT the original repo!) **
+1. * press green compareAndPullRequest button)
 
-4. press green createPullRequest button
-5. press green mergePullRequest button
-6. press green confirmMerge button
+## IMPORTANT!!!
+
+** 2. Update the base fork drop down button (the far left button) to the local repo (iow change it to the forked repo, NOT the original repo!) **
+
+3. press green createPullRequest button
+4. press green mergePullRequest button
+5. press green confirmMerge button
 ---
 
 `git checkout master`
