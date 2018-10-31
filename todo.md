@@ -1,17 +1,28 @@
-factor js into separate scripts
+### PLEASE:
+1. Do a git pull before choosing a todo item
+2. Put your initials by the todo item you're working on so others can select from the remaining todo items when they do a git pull
+3. Do a git push so the todo.md is updated for everyone to see when they do their git pull
+4. create a branch to work on the todo item
 
-consolidate html files
+** (Github branch making steps available @ githubSteps.md) **
 
-strip pubsub.html to game essentials only
+---
+* factor js into separate scripts
 
-css pubsub.html
+* consolidate html files
 
-player choice of marker
+* strip pubsub.html to game essentials only
 
-restart game option
+* player choice of marker
 
-css game win state
+* create button invite link for friends of players to join
 
-create btn invite link for friends of players to join
+* restart game option
 
-css invite btn & game start
+* css pubsub.html (or NEW_GAME.html etc)
+
+* css invite button
+
+* css game start
+
+* css game win state
