@@ -1,12 +1,17 @@
-* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
 html {
   height: 100%;
 }
+
 body {
   padding: 0;
   margin: 0;
-  font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; 
+  font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
   font-weight: 300;
   line-height: 1.4em;
   background: #fff;
@@ -14,6 +19,7 @@ body {
   color: #333;
   font-size: 1.2em;
 }
+
 /*footer {
   font-size: 0.75em;
   color: silver;
@@ -27,34 +33,43 @@ footer a {
 a {
   color: #E24329;
 }
+
 header {
   padding: 16px 20px;
   background-color: #74B1B4;
   color: #fff;
 }
+
 header a {
   text-decoration: none;
   color: #fff;
 }
+
 .index li {
   line-height: 1.5em;
 }
+
 h1, h2, h3 {
   font-weight: 200;
   text-rendering: optimizeLegibility;
 }
+
 h1, h3 {
   color: #FC6D26;
 }
+
 h2 {
   color: #E24329;
 }
+
 code {
   font-size: 1.2em;
 }
+
 header {
   position: relative;
 }
+
 header .logo {
   display: block;
   margin: 1em auto;
@@ -62,25 +77,31 @@ header .logo {
   height: 206px;
   opacity: 0.7;
 }
+
 .masthead {
   width: 80%;
   margin: 70px auto;
 }
+
 .masthead h1 {
   font-size: 48px;
 }
+
 .main {
   width: 80%;
   margin: 2em auto;
 }
+
 .main li {
   line-height: 1.8;
 }
+
 footer {
   position: absolute;
   bottom: 1em;
   right: 1em;
 }
+
 input[type=button], button, a.button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -90,67 +111,82 @@ input[type=button], button, a.button {
   padding: .7em 1em;
   margin-bottom: 1em;
 }
+
 input[type=button], button, a.button {
   background: #EFBD19;
   color: #fff;
   min-height: 48px;
 }
+
 input[type=button]:disabled, button:disabled, a.button:disabled {
   background: #e6e6e6;
   color: #909090;
   text-shadow: 0 1px 0 #f3f3f3;
 }
+
 input[type=check] {
   margin-right: 1em;
 }
+
 .subdue {
   color: #787878;
 }
+
 .game {
   margin: 2em 0;
   overflow: auto;
   width: 100%
 }
+
 .game .col {
   float: left;
   margin-right: 2em;
 }
+
 .game .col:first-of-type {
   min-width: 200px;
 }
+
 ol#moves {
-    counter-reset: item;
-    list-style-type: none;
-    margin-left: -20px;
+  counter-reset: item;
+  list-style-type: none;
+  margin-left: -20px;
 }
 
 ol#moves li:before {
-    content: 'Move #' counter(item) '. ';
-    counter-increment: item;
+  content: 'Move #'counter(item) '. ';
+  counter-increment: item;
 }
+
 #tictactoe {
   margin: 1em auto;
   padding: 20px;
   background: transparent url(../images/tictactoe-bkgd.png) 0 0 no-repeat;
   width: 200px;
 }
+
 #tictactoe.disabled {
   pointer-events: none;
   opacity: 0.5;
 }
+
 #whosTurn {
   color: #E24329;
 }
+
 #pubsub span {
   color: #E24329;
 }
+
 #pubsub code {
   font-size: 1.8em;
   line-height: 2em;
 }
+
 #presence em {
   color: #FC6D26;
 }
+
 #presenceConsole {
   position: relative;
   padding: 2.5em 2em 1.5em;
@@ -163,6 +199,7 @@ ol#moves li:before {
   border-top-right-radius: 6px;
   min-height: 100px;
 }
+
 #presenceConsole:before {
   position: absolute;
   top: 0;
@@ -178,16 +215,18 @@ ol#moves li:before {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
+
 #presenceConsole:after {
   position: absolute;
   top: 0;
   left: 0;
   content: "Presence Console";
   padding-left: 75px;
-  font-family: sans-serif; 
+  font-family: sans-serif;
   color: #5b5b5b;
   font-size: 0.75em;
 }
+
 .presence {
   position: relative;
   min-width: 80px;
@@ -200,6 +239,7 @@ ol#moves li:before {
   text-align: center;
   background: #B0AEA9;
 }
+
 .presence:after {
   content: "";
   position: absolute;
@@ -213,18 +253,22 @@ ol#moves li:before {
   display: block;
   width: 0;
 }
+
 .presence strong {
   font-size: 2.2rem;
   line-height: 2.3rem;
 }
+
 .presence span {
   display: block;
   font-size: 1.1rem;
   line-height: 1.5rem;
 }
+
 .presence.two {
   background: #EFBD19;
 }
+
 .presence.two:after {
   border-color: transparent #EFBD19;
 }
@@ -241,6 +285,7 @@ ol#moves li:before {
   font-weight: normal;
   font-style: normal;
 }
+
 .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -250,13 +295,14 @@ ol#moves li:before {
   -moz-osx-font-smoothing: grayscale;
   margin-left: 10px;
 }
+
 .fa-github::before {
-    content: "\f09b";
+  content: "\f09b";
 }
+
 header .fa {
   position: absolute;
   right: 18px;
   top: 9px;
   font-size: 2em;
 }
-
