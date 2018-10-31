@@ -9,20 +9,21 @@
 ---
 * factor js into separate scripts
 
-* consolidate html files // ** Mateo **
+* ~~consolidate html files~~ // ** Mateo **
 
-* strip pubsub.html to game essentials only
+* strip index.html to game essentials only
 
 * player choice of marker
 
-* create button invite link for friends of players to join
+* create button invite link for
+friends of players to join
 
 * restart game option
 
-* css pubsub.html (or NEW_GAME.html etc)
+* adopt version control (iow version 0.1 etc)
 
-* css invite button
-
-* css game start
-
-* css game win state
+* (style.css)
+  * index.html
+  * invite button
+  * game start
+  * game win state

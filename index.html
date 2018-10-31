@@ -1,57 +1,168 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-	<title>PubNub APIs Explained</title>
-	<meta name="description" content="Simple Chat Room">
-	<meta name="author" content="Tomomi Imura  @girlie_mac">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+  <section class="main">
 
-	<!-- Google Tag Manager -->
-	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PZWSZ2" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<script>
-		(function(w, d, s, l, i) {
-			w[l] = w[l] || [];
-			w[l].push({
-				'gtm.start': new Date().getTime(),
-				event: 'gtm.js'
-			});
-			var f = d.getElementsByTagName(s)[0],
-				j = d.createElement(s),
-				dl = l != 'dataLayer' ? '&l=' + l : '';
-			j.async = true;
-			j.src =
-				'//www.googletagmanager.com/gtm.js?id=' + i + dl;
-			f.parentNode.insertBefore(j, f);
-		})(window, document, 'script', 'dataLayer', 'GTM-PZWSZ2');
-	</script>
-	<!-- End Google Tag Manager -->
+    <section class="intro">
+      <h2>Presence In a Nutshell</h2>
+      Presence allows you to track who (or which device, if you are building an Internet of Things application) is online and offline, and the status of users/devices in realtime. (<a href="http://www.pubnub.com/docs/web-javascript/presence" target="_blank">API</a>)
+      <h2>Publish/Subscribe In a Nutshell</h2>
+      PubNub utilizes a Publish/Subscribe model for real-time data streaming and device signaling which lets you establish and maintain persistent socket connections to any device and push data to global audiences in less than ¼ of a second. (<a
+        href="http://www.pubnub.com/docs/web-javascript/data-streams-publish-and-subscribe" target="_blank">API</a>)
+      <h2>Storage and Playback In a Nutshell</h2>
+      PubNub's Storage and Playback feature, also referred as History API, enables you to store messages temporary as they are published, and retrieve the previously-published messages at a later time. (<a href="http://www.pubnub.com/docs/web-javascript/storage-and-history"
+        target="_blank">API</a>)
+    </section>
 
-	<header>
-		<a href="index.html">PubNub JavaScript APIs</a>
-		<a href="https://github.com/pubnub/api-guide-with-tictactoe" target="_blank" class="fa fa-github"></a>
-	</header>
+    <section class="demo">
+      <h2>Demo</h2>
 
-	<section class="masthead">
-		<h1>PubNub JavaScript APIs Explained</h1>
-	</section>
+      <p>See the <a href="https://github.com/dianacgaona/api-guide-with-tictactoe">previous section to see How to Play Tic-Tac-Toe</a>.</p>
 
-	<section class="index main" role="main">
-		<li>Publish and Subscribe (<a href="pubsub.html">Demo</a>) (<a href="https://www.pubnub.com/docs/publish-subscribe-getting-started-guide" target="_blank">Guide</a>)</li>
-		<li>Storage and Playback (<a href="history.html">Demo</a>) (<a href="https://www.pubnub.com/docs/storage-and-playback-getting-started-guide" target="_blank">Guide</a>)</li>
-		<li>Presence (<a href="presence.html">Demo</a>) (<a href="https://www.pubnub.com/docs/presence-getting-started-guide" target="_blank">Guide</a>)</li>
-		<li>Data Stream Controller (<a href="https://www.pubnub.com/docs/stream-controller-getting-started-guide" target="_blank">Guide</a>)</li>
-		<li>Access Manager (<a href="https://pubnub-auth-chat.herokuapp.com/" target="_blank">Node.js Demo with Crypto</a>) (<a href="https://www.pubnub.com/docs/pubnub-access-manager-getting-started-guide" target="_blank">Guide</a>)</li>
-	</section>
+      <p>
+        <strong>You (X):</strong>
+        <ol>
+          <li>Stay on this browser</li>
+          <li>Play when your opponent is ready</li>
+        </ol>
+        <!-- </p> -->
 
-	<footer><a href="http:/pubnub.com" target="_blank">PubNub.com</a></footer>
+        <p><strong>Your opponent (O):</strong>
+          <ol>
+            <li>Open an another browser tab or window.</li>
+            <li>In the new browser tab or window, go to: <strong><span id="gameIdQuery"></span></strong></li>
+          </ol>
+          <!-- </p> -->
+
+          <h3>Presence in Action</h3>
+
+          <p>This game won't start until two players are connected at the same channel. Presence detection makes it possible to track when the second player logs on.</p>
+
+          <p>To demonstrate how PubNub Storage and Playback (History API) works, each move is recorded by sending the data to PubNub data stream with timestamp. You will see how the API works after the game!</p>
+
+          <section class="game">
+            <div class="col">
+              <div class="presence">
+                <strong>0</strong>
+                <span>players</span>
+              </div>
+            </div>
+
+            <section class="game">
+              <div class="col">
+                <ol id="moves">
+                </ol>
+              </div>
+
+              <div class="col">
+                <div id="tictactoe" class="disabled"></div>
+              </div>
+
+              <div class="col">
+                Game ID: <strong id="gameId"></strong>
+                <br>
+                You: <span id="you"></span>
+                <br>
+                <span id="whosTurn">It is your turn!</span>
+              </div>
+
+            </section>
+
+          </section>
+
+          <section id="presence">
+            <h2>Presence API Explained</h2>
+
+            <p>Presence allows you to detect more than just a number of users online. It triggers the following presence events against the channels too. They are, <em>Join</em>, <em>Leave</em>, and <em>timeout</em>-</p>
+
+            <div id="presenceConsole"></div>
+
+            <p>Observe the <em>Join</em> action, by joining to the game. When you open an another browser window or tab to access the same game ID, you should see the presence indication each time a new player joining (although any players who joine
+              after the 2nd player cannot play the game).</p>
+
+            <p>Observe the <em>Leave</em> action, by manually leaving the game. Click "Quit" button below to <strong>unsubscribing</strong> from the game channel.</p>
+
+            <button id="quitButton">Quit</button>
+
+            <p>Observe <em>Timeout</em> action, by <strong>closing the browser tab or window</strong>. It happens when the browser loses its socket connection, and it can take up a few minutes to timeout. It happens when you are accessing on mobile
+              and loses the connectivity, too.</p>
+          </section>
+
+          <section id="pubsub">
+            <h2>Publish/Subscribe Explained</h2>
+
+            <p class="desc">
+              Let's say, you are playing <strong>X</strong>. <br><br>
+              Each time you click one of the cells, your move is <em>published</em> to PubNub data stream.
+              Your opponent receives the data by <em>subscribing</em> the message just have been published.<br>
+              The UI on both browser windows is updated upon each subscribe call.
+            </p>
+
+            <p>You are publishing (your move): <br>
+              <code>{player: <span id="pubPlayer">---</span>, position: <span id="pubPosition">---</span>}</code>
+
+              <p>You subscribing (all the messages published to PubNub stream): <br>
+                <code>{player: <span id="subPlayer">---</span>, position: <span id="subPosition">---</span>}</code>
+
+          </section>
+
+    </section>
+
+    <section id="history">
+      <h2>History API Explained</h2>
+
+      <p>This game has maximum 9 moves. Each move data is sent to PubNub, so that you can track back 9 messages using History API. Let's see how the API with these optional attributes works:</p>
+
+      <p>
+        History count:
+        <select id="count">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="100">Default (100)</option>
+        </select>
+      </p>
+
+      <p>
+        <input type="checkbox" name="reverse" id="reverse">Reverse the traversal order<br>
+        <small class="subdue"><em>True</em> will return messages in first-in-first-out (FIFO) order.
+          This is disregarded, when the time is specified.</small>
+      </p>
+
+      <p><input type="checkbox" name="time" id="time">Specific Time span
+
+        <select id="timeSpan" hidden>
+          <option value="0.5">30 sec ago from now</option>
+          <option value="5">5 min ago from now</option>
+          <option value="60">1 hour ago from now</option>
+        </select>
+      </p>
+
+      <button id="showResultButton">Show Moves</button>
+
+      <ol id="output"></ol>
+    </section>
+
+
+
+  </section>
+
+  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.15.1.min.js"></script>
+  <script src="js/app.js"></script>
 
 </body>
 

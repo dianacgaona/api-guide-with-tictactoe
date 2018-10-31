@@ -1,5 +1,5 @@
-(function() {
-  var gameId =  document.querySelector('#gameId');
+(function () {
+  var gameId = document.querySelector('#gameId');
   var gameIdQuery = document.querySelector('#gameIdQuery');
   var tictactoe = document.querySelector('#tictactoe');
   var output = document.querySelector('#output');
@@ -8,12 +8,14 @@
   var gameid = '';
   var rand = (Math.random() * 9999).toFixed(0);
 
-  gameid = (getGameId()) ? getGameId() : rand;
+  gameid = getGameId() ? getGameId() : rand;
 
   gameId.textContent = gameid;
 
-  var oppoenetUrl = 'https://pubnub.github.io/api-guide-with-tictactoe/plain.html?id=' +gameid;
-  gameIdQuery.innerHTML = '<a href="' +oppoenetUrl+ '" target="_blank">' +oppoenetUrl+ '</a>';
+  var oppoenetUrl =
+    'https://pubnub.github.io/api-guide-with-tictactoe/plain.html?id=' + gameid;
+  gameIdQuery.innerHTML =
+    '<a href="' + oppoenetUrl + '" target="_blank">' + oppoenetUrl + '</a>';
 
   var channel = 'tictactoe--' + gameid;
   console.log('Channel: ' + channel);
@@ -21,7 +23,7 @@
   var pubnub = new PubNub({
     subscribeKey: 'demo',
     publishKey: 'demo',
-    ssl: true
+    ssl: true,
   });
 
   // instantiating PubNub generates a UUID for you and stores it in localStorage
@@ -30,7 +32,7 @@
 
   function displayOutput(msg) {
     if (!msg) return;
-    return '<li><strong>' +  msg.player + '</strong>: ' + msg.position + '</li>';
+    return '<li><strong>' + msg.player + '</strong>: ' + msg.position + '</li>';
   }
 
   /*
@@ -43,15 +45,18 @@
 
   pubnub.addListener({
     // message events callback - handles all messages published to the subscribed channels
-    message: function(event) {
+    message: function (event) {
       // Display the move
       if (document.querySelector('#moves')) {
         var movesOutput = document.querySelector('#moves');
-        movesOutput.innerHTML =  movesOutput.innerHTML + displayOutput(event.message);
+        movesOutput.innerHTML =
+          movesOutput.innerHTML + displayOutput(event.message);
       }
 
       // Display the move on the board
-      var el = document.querySelector('[data-position="'+ event.message.position + '"]');
+      var el = document.querySelector(
+        '[data-position="' + event.message.position + '"]'
+      );
       el.firstChild.nodeValue = event.message.player;
       console.log(el);
 
@@ -62,17 +67,15 @@
     },
 
     // presence events callback - handles all presence events for all channels subscribed withPresence
-    presence: function(event) {
+    presence: function (event) {
       console.log(event);
 
       if (event.uuid === uuid && event.action === 'join') {
         if (event.occupancy < 2) {
           whosTurn.textContent = 'Waiting for your opponent...';
-        }
-        else if (event.occupancy === 2) {
+        } else if (event.occupancy === 2) {
           mySign = 'O';
-        }
-        else if (event.occupancy > 2) {
+        } else if (event.occupancy > 2) {
           alert('This game already have two players!');
           tictactoe.className = 'disabled';
         }
@@ -92,44 +95,53 @@
     },
 
     // status events callback - handles network connectivity status events for all subscribed channels
-    status: function(event) {
-      if (event.category == "PNConnectedCategory") {
-          play();
+    status: function (event) {
+      if (event.category == 'PNConnectedCategory') {
+        play();
       }
-    }
+    },
   });
 
   // subscribe to the game channel and monitor presence events on that channel
   pubnub.subscribe({
     channels: [channel],
-    withPresence: true
+    withPresence: true,
   });
 
   function publishPosition(player, position) {
     pubnub.publish(
       {
         channel: channel,
-        message: {player: player, position: position}
+        message: {
+          player: player,
+          position: position,
+        },
       },
       function (status, response) {
         if (status.error) {
-            // handle error
-            console.error(status);
-        }
-        else {
-            console.log("message Published w/ timetoken", response.timetoken);
+          // handle error
+          console.error(status);
+        } else {
+          console.log('message Published w/ timetoken', response.timetoken);
         }
       }
     );
   }
 
-  function getGameId(){
+  function getGameId() {
     // If the uRL comes with referral tracking queries from the URL
-    if (window.location.search.substring(1).split('?')[0].split('=')[0] !== 'id') {
+    if (
+      window.location.search
+        .substring(1)
+        .split('?')[0]
+        .split('=')[0] !== 'id'
+    ) {
       return null;
-    }
-    else {
-      return window.location.search.substring(1).split('?')[0].split('=')[1];
+    } else {
+      return window.location.search
+        .substring(1)
+        .split('?')[0]
+        .split('=')[1];
     }
   }
 
@@ -142,22 +154,27 @@
 
   function startNewGame() {
     turn = 'X';
-    score = {'X': 0, 'O': 0};
+    score = {
+      X: 0,
+      O: 0,
+    };
     moves = 0;
 
     for (var i = 0; i < squares.length; i += 1) {
       squares[i].firstChild.nodeValue = EMPTY;
     }
 
-    whosTurn.textContent = (turn === mySign) ? 'Your turn' : 'Your opponent\'s turn';
+    whosTurn.textContent =
+      turn === mySign ? 'Your turn' : "Your opponent's turn";
   }
 
   function win(score) {
     for (var i = 0; i < wins.length; i += 1) {
       if ((wins[i] & score) === wins[i]) {
-          return true;
+        return true;
       }
     }
+
     return false;
   }
 
@@ -170,13 +187,12 @@
 
     if (win(score[turn])) {
       alert(turn + ' wins!');
-    }
-    else if (moves === 9) {
+    } else if (moves === 9) {
       alert('Boooo!');
-    }
-    else {
-      turn = (turn === 'X') ? 'O' : 'X';
-      whosTurn.textContent = (turn === mySign) ? 'Your turn' : 'Your opponent\'s turn';
+    } else {
+      turn = turn === 'X' ? 'O' : 'X';
+      whosTurn.textContent =
+        turn === mySign ? 'Your turn' : "Your opponent's turn";
     }
   }
 
@@ -187,7 +203,7 @@
     publishPosition(mySign, this.dataset.position);
 
     // this is for Pub/Sub explained section.
-    toBePublished(mySign, this.dataset.position)
+    toBePublished(mySign, this.dataset.position);
   }
 
   function play() {
@@ -235,7 +251,8 @@
     if (!document.getElementById('subPlayer')) return;
 
     document.getElementById('subPlayer').textContent = '"' + msg.player + '"';
-    document.getElementById('subPosition').textContent = '"' + msg.position + '"';
+    document.getElementById('subPosition').textContent =
+      '"' + msg.position + '"';
   }
 
   /*
@@ -249,65 +266,68 @@
     var timeCheck = document.getElementById('time');
     var timeSelect = document.getElementById('timeSpan');
 
-    timeCheck.addEventListener('change', function(e) {
+    timeCheck.addEventListener('change', function (e) {
       if (timeCheck.checked) {
         timeSelect.hidden = false;
         reverseCheck.disabled = true;
-      }
-      else {
+      } else {
         timeSelect.hidden = true;
         reverseCheck.disabled = false;
       }
     });
 
-    showResultButton.addEventListener('click', function(e) {
-      output.innerHTML = '';
+    showResultButton.addEventListener(
+      'click',
+      function (e) {
+        output.innerHTML = '';
 
-      var count = select.options[select.selectedIndex].value;
-      console.log('Getting ' + count + ' messages from history...');
+        var count = select.options[select.selectedIndex].value;
+        console.log('Getting ' + count + ' messages from history...');
 
-      var isReversed = reverseCheck.checked;
-      console.log('Reverse: ' + isReversed);
+        var isReversed = reverseCheck.checked;
+        console.log('Reverse: ' + isReversed);
 
-      var timespan = (timeCheck.checked) ? timeSelect.value : null;
+        var timespan = timeCheck.checked ? timeSelect.value : null;
 
-      getHistory(count, isReversed, timespan);
-    }, false);
+        getHistory(count, isReversed, timespan);
+      },
+
+      false
+    );
   }
 
   function getHistory(count, isReversed, timespan) {
     if (timespan) {
-      var start = (new Date().getTime() - (timespan * 60 * 1000)) * 10000;
+      var start = (new Date().getTime() - timespan * 60 * 1000) * 10000;
       var end = new Date().getTime() * 10000;
 
-      console.log(start, end)
+      console.log(start, end);
 
       pubnub.history(
         {
           channel: channel,
           count: count,
           start: start,
-          end: end
+          end: end,
         },
-        function(status, response) {
-          response.messages.forEach(function(msg) {
+        function (status, response) {
+          response.messages.forEach(function (msg) {
             console.log(msg);
-            output.innerHTML =  output.innerHTML + displayOutput(msg);
+            output.innerHTML = output.innerHTML + displayOutput(msg);
           });
         }
       );
-    }
-    else {
+    } else {
       pubnub.history(
         {
           channel: channel,
           count: count,
-          reverse: isReversed
+          reverse: isReversed,
         },
-        function(status, response) {
-          response.messages.forEach(function(msg){
+        function (status, response) {
+          response.messages.forEach(function (msg) {
             console.log(msg);
-            output.innerHTML =  output.innerHTML + displayOutput(msg);
+            output.innerHTML = output.innerHTML + displayOutput(msg);
           });
         }
       );
@@ -342,13 +362,13 @@
   if (document.getElementById('quitButton')) {
     var quitButton = document.getElementById('quitButton');
 
-    quitButton.addEventListener('click', function(e) {
+    quitButton.addEventListener('click', function (e) {
       pubnub.unsubscribe({
         channels: [channel],
-        callback: function(msg) {
+        callback: function (msg) {
           console.log(msg);
           showPresenceConsole(msg);
-        }
+        },
       });
     });
   }
