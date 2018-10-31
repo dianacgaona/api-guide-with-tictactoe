@@ -15,6 +15,12 @@
 `git commit -m “commitMsg"`
 ** // commit files **
 
+`git checkout master`
+** // switch to local master branch
+
+`git merge NEW_BRANCH_NAME`
+** // merge branch updates to local master branch
+
 `git push origin NEW_BRANCH_NAME`
 ** // push from new_branch_name **
 
