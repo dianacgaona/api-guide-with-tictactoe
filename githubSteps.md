@@ -21,8 +21,13 @@
 `git merge NEW_BRANCH_NAME`
 ** // merge branch updates to local master branch
 
+`git push origin master`
+// push updates from local master branch
+
+**OR**
+
 `git push origin NEW_BRANCH_NAME`
-** // push from new_branch_name **
+** // push from new_branch_name if you didn't merge NEW_BRANCH_NAME with your local branch **
 
 ---
 Navigate to Github.com/REPO_NAME:
