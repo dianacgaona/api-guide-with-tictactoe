@@ -18,16 +18,18 @@
 `git checkout master`
 ** // switch to local master branch
 
+---
+
+`git push origin NEW_BRANCH_NAME`
+** // push from new_branch_name => allows for tracking pull requests form github.com/REPO_NAME **
+
+**OR**
+
 `git merge NEW_BRANCH_NAME`
 ** // merge branch updates to local master branch
 
 `git push origin master`
-// push updates from local master branch
-
-**OR**
-
-`git push origin NEW_BRANCH_NAME`
-** // push from new_branch_name if you didn't merge NEW_BRANCH_NAME with your local branch **
+// push updates from local master branch => changes are automatic (iow cannot track pull request files changes this way!)
 
 ---
 Navigate to Github.com/REPO_NAME:
@@ -35,7 +37,7 @@ Navigate to Github.com/REPO_NAME:
 https://github.com/dianacgaona/api-guide-with-tictactoe
 
 1. * click branch link
- * press NEW_BRANCH_NAME newPullRequest button
+ * press newPullRequest button (associated with NEW_BRANCH_NAME)
 
 **OR if available:**
 
