@@ -34,7 +34,7 @@ https://github.com/dianacgaona/api-guide-with-tictactoe
 
 **OR if available:**
 
-1. * press green compareAndPullRequest button)
+1. * press green compareAndPullRequest button
 
 ## IMPORTANT!!!
 
@@ -45,8 +45,11 @@ https://github.com/dianacgaona/api-guide-with-tictactoe
 5. press green confirmMerge button
 ---
 
+'`git branch`
+** // checks which branch you’re in **
+
 `git checkout master`
-** // switch to master branch **
+** // switch to master branch if not there already **
 
 `git pull origin master`
 ** // update local master branch **
