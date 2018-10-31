@@ -9,7 +9,7 @@
 ---
 * factor js into separate scripts
 
-* consolidate html files
+* consolidate html files // ** Mateo **
 
 * strip pubsub.html to game essentials only
 
