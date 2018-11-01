@@ -1,4 +1,5 @@
-(function () {
+// (function () {
+export default function game() {
   var gameId = document.querySelector('#gameId');
   var gameIdQuery = document.querySelector('#gameIdQuery');
   var tictactoe = document.querySelector('#tictactoe');
@@ -372,4 +373,18 @@
       });
     });
   }
-})();
+}
+
+// class Game {
+//   constructor() {
+//     this.active = false;
+//   }
+//
+//   start() {
+//     this.active = true;
+//   }
+// }
+//
+// module.exports = Game;
+
+// })();
