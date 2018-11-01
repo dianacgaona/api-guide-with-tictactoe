@@ -9,6 +9,17 @@
 ---
 * factor js into separate scripts // ** Mateo **
 
+* ~~integrate webpack to bundle app~~ // ** Mateo **
+
+**NOTE: (inside api-guide-with-tictactoe folder)**
+
+`npm install --save-dev webpack`
+
+`npm install webpack webpack-cli --save-dev`
+
+**then to use:**
+`npm run build`
+
 * ~~consolidate html files~~ // ** Mateo **
 
 * strip index.html to game essentials only
