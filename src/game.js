@@ -161,7 +161,7 @@ export default function game() {
     };
     moves = 0;
 
-    for (var i = 0; i < squares.length; i += 1) {
+    for (let i = 0; i < squares.length; i += 1) {
       squares[i].firstChild.nodeValue = EMPTY;
     }
 
@@ -170,7 +170,7 @@ export default function game() {
   }
 
   function win(score) {
-    for (var i = 0; i < wins.length; i += 1) {
+    for (let i = 0; i < wins.length; i += 1) {
       if ((wins[i] & score) === wins[i]) {
         return true;
       }
@@ -209,16 +209,16 @@ export default function game() {
 
   function play() {
     var indicator = 1;
-    var i, j;
-    var row, cell;
+    var row;
+    var cell;
     var board = document.createElement('table');
     board.border = 1;
 
-    for (i = 1; i < 4; i += 1) {
+    for (let i = 1; i < 4; i += 1) {
       row = document.createElement('tr');
       board.appendChild(row);
 
-      for (j = 1; j < 4; j += 1) {
+      for (let j = 1; j < 4; j += 1) {
         cell = document.createElement('td');
         cell.dataset.position = i + '-' + j;
         cell.width = cell.height = 50;
