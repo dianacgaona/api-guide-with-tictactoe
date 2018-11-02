@@ -1,6 +1,7 @@
 // (function () {
 import displayOutput from './displayOutput';
 import getGameId from './getGameId';
+import showPresenceExamples from './showPresenceExamples';
 import createPubNub from './createPubNub';
 
 export default function game() {
@@ -346,26 +347,26 @@ export default function game() {
    * Presence API Explained section
    */
 
-  function showPresenceExamples(msg) {
-    showPresenceConsole(msg);
+  // function showPresenceExamples(msg) {
+  //   showPresenceConsole(msg);
+  //
+  //   document.querySelector('.presence').classList.remove('two');
+  //   document.querySelector('.presence strong').textContent = msg.occupancy;
+  //   document.querySelector('.presence span').textContent = 'player';
+  //
+  //   if (msg.occupancy > 1) {
+  //     document.querySelector('.presence span').textContent = 'players';
+  //     document.querySelector('.presence').classList.add('two');
+  //   }
+  // }
 
-    document.querySelector('.presence').classList.remove('two');
-    document.querySelector('.presence strong').textContent = msg.occupancy;
-    document.querySelector('.presence span').textContent = 'player';
-
-    if (msg.occupancy > 1) {
-      document.querySelector('.presence span').textContent = 'players';
-      document.querySelector('.presence').classList.add('two');
-    }
-  }
-
-  function showPresenceConsole(msg) {
-    let console = document.querySelector('#presenceConsole');
-    let child = document.createElement('div');
-    let text = document.createTextNode(JSON.stringify(msg));
-    child.appendChild(text);
-    console.appendChild(child);
-  }
+  // function showPresenceConsole(msg) {
+  //   let console = document.querySelector('#presenceConsole');
+  //   let child = document.createElement('div');
+  //   let text = document.createTextNode(JSON.stringify(msg));
+  //   child.appendChild(text);
+  //   console.appendChild(child);
+  // }
 
   if (document.getElementById('quitButton')) {
     let quitButton = document.getElementById('quitButton');
