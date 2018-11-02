@@ -1,40 +1,47 @@
 // (function () {
-export default function game() {
-  var gameId = document.querySelector('#gameId');
-  var gameIdQuery = document.querySelector('#gameIdQuery');
-  var tictactoe = document.querySelector('#tictactoe');
-  var output = document.querySelector('#output');
-  var whosTurn = document.getElementById('whosTurn');
+import displayOutput from './displayOutput';
+import getGameId from './getGameId';
+import createPubNub from './createPubNub';
 
-  var gameid = '';
-  var rand = (Math.random() * 9999).toFixed(0);
+export default function game() {
+  let gameId = document.querySelector('#gameId');
+  let gameIdQuery = document.querySelector('#gameIdQuery');
+  let tictactoe = document.querySelector('#tictactoe');
+  let output = document.querySelector('#output');
+  let whosTurn = document.getElementById('whosTurn');
+
+  let gameid = '';
+  let rand = (Math.random() * 9999).toFixed(0);
 
   gameid = getGameId() ? getGameId() : rand;
 
   gameId.textContent = gameid;
 
-  var oppoenetUrl =
+  let oppoenetUrl =
     'https://pubnub.github.io/api-guide-with-tictactoe/plain.html?id=' + gameid;
   gameIdQuery.innerHTML =
     '<a href="' + oppoenetUrl + '" target="_blank">' + oppoenetUrl + '</a>';
 
-  var channel = 'tictactoe--' + gameid;
+  let channel = 'tictactoe--' + gameid;
   console.log('Channel: ' + channel);
 
-  var pubnub = new PubNub({
-    subscribeKey: 'demo',
-    publishKey: 'demo',
-    ssl: true,
-  });
+  // var pubnub = new PubNub({
+  //   subscribeKey: 'demo',
+  //   publishKey: 'demo',
+  //   ssl: true,
+  // });
 
   // instantiating PubNub generates a UUID for you and stores it in localStorage
   // and reuses that UUID from localStorage on subsequent PubNub instantiations
-  var uuid = pubnub.getUUID();
 
-  function displayOutput(msg) {
-    if (!msg) return;
-    return '<li><strong>' + msg.player + '</strong>: ' + msg.position + '</li>';
-  }
+  let pubnub = createPubNub();
+  console.log('@game', pubnub);
+  let uuid = pubnub.getUUID();
+
+  // function displayOutput(msg) {
+  //   if (!msg) return;
+  //   return '<li><strong>' + msg.player + '</strong>: ' + msg.position + '</li>';
+  // }
 
   /*
    * Tic-tac-toe
@@ -42,7 +49,7 @@ export default function game() {
    * Two player feature with PubNub
    */
 
-  var mySign = 'X';
+  let mySign = 'X';
 
   pubnub.addListener({
     // message events callback - handles all messages published to the subscribed channels
@@ -129,29 +136,29 @@ export default function game() {
     );
   }
 
-  function getGameId() {
-    // If the uRL comes with referral tracking queries from the URL
-    if (
-      window.location.search
-        .substring(1)
-        .split('?')[0]
-        .split('=')[0] !== 'id'
-    ) {
-      return null;
-    } else {
-      return window.location.search
-        .substring(1)
-        .split('?')[0]
-        .split('=')[1];
-    }
-  }
+  // function getGameId() {
+  //   // If the uRL comes with referral tracking queries from the URL
+  //   if (
+  //     window.location.search
+  //       .substring(1)
+  //       .split('?')[0]
+  //       .split('=')[0] !== 'id'
+  //   ) {
+  //     return null;
+  //   } else {
+  //     return window.location.search
+  //       .substring(1)
+  //       .split('?')[0]
+  //       .split('=')[1];
+  //   }
+  // }
 
-  var squares = [];
-  var EMPTY = '\xA0';
-  var score;
-  var moves;
-  var turn = 'X';
-  var wins = [7, 56, 448, 73, 146, 292, 273, 84];
+  let squares = [];
+  let EMPTY = '\xA0';
+  let score;
+  let moves;
+  let turn = 'X';
+  let wins = [7, 56, 448, 73, 146, 292, 273, 84];
 
   function startNewGame() {
     turn = 'X';
@@ -208,10 +215,10 @@ export default function game() {
   }
 
   function play() {
-    var indicator = 1;
-    var row;
-    var cell;
-    var board = document.createElement('table');
+    let indicator = 1;
+    let row;
+    let cell;
+    let board = document.createElement('table');
     board.border = 1;
 
     for (let i = 1; i < 4; i += 1) {
@@ -261,11 +268,11 @@ export default function game() {
    */
 
   if (document.getElementById('history')) {
-    var showResultButton = document.getElementById('showResultButton');
-    var select = document.getElementById('count');
-    var reverseCheck = document.getElementById('reverse');
-    var timeCheck = document.getElementById('time');
-    var timeSelect = document.getElementById('timeSpan');
+    let showResultButton = document.getElementById('showResultButton');
+    let select = document.getElementById('count');
+    let reverseCheck = document.getElementById('reverse');
+    let timeCheck = document.getElementById('time');
+    let timeSelect = document.getElementById('timeSpan');
 
     timeCheck.addEventListener('change', function (e) {
       if (timeCheck.checked) {
@@ -282,13 +289,13 @@ export default function game() {
       function (e) {
         output.innerHTML = '';
 
-        var count = select.options[select.selectedIndex].value;
+        let count = select.options[select.selectedIndex].value;
         console.log('Getting ' + count + ' messages from history...');
 
-        var isReversed = reverseCheck.checked;
+        let isReversed = reverseCheck.checked;
         console.log('Reverse: ' + isReversed);
 
-        var timespan = timeCheck.checked ? timeSelect.value : null;
+        let timespan = timeCheck.checked ? timeSelect.value : null;
 
         getHistory(count, isReversed, timespan);
       },
@@ -299,8 +306,8 @@ export default function game() {
 
   function getHistory(count, isReversed, timespan) {
     if (timespan) {
-      var start = (new Date().getTime() - timespan * 60 * 1000) * 10000;
-      var end = new Date().getTime() * 10000;
+      let start = (new Date().getTime() - timespan * 60 * 1000) * 10000;
+      let end = new Date().getTime() * 10000;
 
       console.log(start, end);
 
@@ -353,15 +360,15 @@ export default function game() {
   }
 
   function showPresenceConsole(msg) {
-    var console = document.querySelector('#presenceConsole');
-    var child = document.createElement('div');
-    var text = document.createTextNode(JSON.stringify(msg));
+    let console = document.querySelector('#presenceConsole');
+    let child = document.createElement('div');
+    let text = document.createTextNode(JSON.stringify(msg));
     child.appendChild(text);
     console.appendChild(child);
   }
 
   if (document.getElementById('quitButton')) {
-    var quitButton = document.getElementById('quitButton');
+    let quitButton = document.getElementById('quitButton');
 
     quitButton.addEventListener('click', function (e) {
       pubnub.unsubscribe({
